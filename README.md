@@ -1,4 +1,4 @@
-ゼロから作る Deep Learning ❷　勉強用のリポジトリ
+ゼロから作る Deep Learning ❷　勉強用リポジトリ
 ==========================
 
 [<img src="https://raw.githubusercontent.com/oreilly-japan/deep-learning-from-scratch-2/images/deep-learning-from-scratch-2.png" width="200px">](https://www.oreilly.co.jp/books/9784873118369/)
