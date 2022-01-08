@@ -49,9 +49,36 @@ def create_co_matrix(corpus, vocab_size, window_size=1):
 
 # コサイン類似度
 ## 同じ向きを向いていると1, 正反対に向いていると-1
-def cos_simirarity(x, y, eps=1e-8):
+def cos_similarity(x, y, eps=1e-8):
     # 0除算を回避するために、分母にepsを足す
     nx = x / np.sqrt(np.sum(x**2) + eps) # xの正規化
     ny = y / np.sqrt(np.sum(y**2) + eps) # yの正規化
     return np.dot(nx, ny)
 
+
+def most_similar(query, word_to_id, id_to_word, word_matrix, top=5):
+    # 1.クエリを取り出す
+    if query not in word_to_id:
+        print('%s is not found' % query)
+        return
+    
+    print('\n[query] ' + query)
+    query_id = word_to_id[query] # query(単語)のidを取り出す
+    query_vec = word_matrix[query_id] # vec化
+
+    # 2.コサイン類似度の算出
+    vocab_size = len(id_to_word)
+    similarity = np.zeros(vocab_size)
+    for i in range(vocab_size):
+        similarity[i] = cos_similarity(word_matrix[i], query_vec)
+
+    # コサイン類似度の高い結果から、高い順に出力
+    count = 0
+    for i in (-1 * similarity).argsort(): # 要素の値が小さい順にソート。インデックスが返る。-1をかけることで、降順にソートする。
+        if id_to_word[i] == query: # コサイン類似度が大きい順に単語を探し、queryと同じだったらその値を出力
+            continue
+        print( '%s: %s' % (id_to_word[i], similarity[i]))
+
+        count += 1
+        if count >= top:
+            return
