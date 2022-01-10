@@ -75,7 +75,7 @@ def most_similar(query, word_to_id, id_to_word, word_matrix, top=5):
     # コサイン類似度の高い結果から、高い順に出力
     count = 0
     for i in (-1 * similarity).argsort(): # 要素の値が小さい順にソート。インデックスが返る。-1をかけることで、降順にソートする。
-        if id_to_word[i] == query: # コサイン類似度が大きい順に単語を探し、queryと同じだったらその値を出力
+        if id_to_word[i] == query: # コサイン類似度が大きい順に単語を探し、queryと同じだったらその値を出力。
             continue
         print( '%s: %s' % (id_to_word[i], similarity[i]))
 
